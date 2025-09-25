@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     wget \
     gcovr \
     lcov \
+    bc \
     libgl1-mesa-dev \
     libglu1-mesa-dev \
     qt6-base-dev \
