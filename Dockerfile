@@ -57,9 +57,11 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
-# Install runtime dependencies
-RUN apt-get update && apt-get install -y \
-    qt6-base-dev \
+# Install runtime dependencies (use qt6-base-runtime for smaller size)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libqt6core6 \
+    libqt6gui6 \
+    libqt6widgets6 \
     libgl1-mesa-glx \
     libglu1-mesa \
     libxcb-xinerama0 \

@@ -47,10 +47,10 @@ echo "Coverage: ${COVERAGE}%"
 # Check if coverage meets minimum requirement (90%)
 if (( $(echo "$COVERAGE < 90" | bc -l) )); then
     echo "WARNING: Code coverage is below 90% threshold!"
-    # Don't exit with error here - we want reports to be generated
-    # The CI/CD pipeline will handle the coverage failure
+    COVERAGE_EXIT_CODE=1
 else
     echo "SUCCESS: Code coverage meets the 90% requirement!"
+    COVERAGE_EXIT_CODE=0
 fi
 
 echo "Test reports generated in test-reports/"
@@ -58,3 +58,6 @@ echo "  - test-results.xml: JUnit test results"
 echo "  - coverage.xml: Cobertura coverage report"
 echo "  - coverage.info: LCOV coverage data"
 echo "  - html/: HTML coverage report"
+
+# Exit with appropriate code
+exit $COVERAGE_EXIT_CODE

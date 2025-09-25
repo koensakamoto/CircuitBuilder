@@ -5,8 +5,8 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
-# Install test dependencies (including Qt Core for QVector)
-RUN apt-get update && apt-get install -y \
+# Install only essential test dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     cmake \
     libgtest-dev \
@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
     gcovr \
     lcov \
     qt6-base-dev \
-    xvfb \
     && rm -rf /var/lib/apt/lists/*
 
 # Build Google Test
@@ -30,9 +29,11 @@ WORKDIR /app
 # Copy project files
 COPY . .
 
-# Set display for GUI tests
-ENV DISPLAY=:99
+# Make test script executable
+RUN chmod +x run-tests.sh
+
+# Set Qt to run in offscreen mode (no X11 needed)
 ENV QT_QPA_PLATFORM=offscreen
 
 # Default command runs tests
-CMD ["sh", "-c", "Xvfb :99 -screen 0 1024x768x24 & sleep 2 && ./run-tests.sh"]
+CMD ["./run-tests.sh"]
