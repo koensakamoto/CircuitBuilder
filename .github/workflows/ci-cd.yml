@@ -30,9 +30,15 @@ jobs:
 
     - name: Run tests with coverage
       run: |
+        # Create test-reports directory on host
+        mkdir -p test-reports
+        # Run tests and mount test-reports directory
         docker run --rm \
           -v ${{ github.workspace }}/test-reports:/app/test-reports \
           ${{ env.DOCKER_IMAGE }}:test
+        # List generated reports for debugging
+        echo "Generated test reports:"
+        ls -la test-reports/
 
     - name: Upload test results
       if: always()
