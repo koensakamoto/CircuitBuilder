@@ -25,9 +25,10 @@ set(SOURCE_FILES
     ../Gate.cpp
 )
 
-# Test files (simple working tests)
+# Test files (comprehensive test suite)
 set(TEST_FILES
     test_simple.cpp
+    test_comprehensive.cpp
 )
 
 # Create test executable

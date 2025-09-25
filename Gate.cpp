@@ -146,12 +146,10 @@ void Gate::removeAllInputs() {
     if (input1) {
         input1->removeOutput(this);
         input1 = nullptr;
-        removeInput(input1);
     }
     if (input2) {
         input2->removeOutput(this);
         input2 = nullptr;
-        removeInput(input2);
     }
 }
 

@@ -14,13 +14,13 @@ TEST_F(SimpleTest, BasicGateCreation) {
 
 TEST_F(SimpleTest, GateTypeCreation) {
     Gate andGate(GateType::AND_GATE);
-    EXPECT_EQ(andGate.getType(), GateType::AND_GATE);
+    EXPECT_EQ(andGate.getGateType(), GateType::AND_GATE);
 }
 
 TEST_F(SimpleTest, DifferentGateTypes) {
     Gate orGate(GateType::OR_GATE);
     Gate inverter(GateType::INVERTER);
 
-    EXPECT_EQ(orGate.getType(), GateType::OR_GATE);
-    EXPECT_EQ(inverter.getType(), GateType::INVERTER);
+    EXPECT_EQ(orGate.getGateType(), GateType::OR_GATE);
+    EXPECT_EQ(inverter.getGateType(), GateType::INVERTER);
 }

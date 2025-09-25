@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="24" failures="0" disabled="0" errors="0" time="0" timestamp="2025-09-25T03:59:56.808" name="AllTests">
+  <testsuite name="SimpleTest" tests="3" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2025-09-25T03:59:56.808">
+    <testcase name="BasicGateCreation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="SimpleTest" />
+    <testcase name="GateTypeCreation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="SimpleTest" />
+    <testcase name="DifferentGateTypes" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="SimpleTest" />
+  </testsuite>
+  <testsuite name="GateTest" tests="21" failures="0" disabled="0" skipped="0" errors="0" time="0" timestamp="2025-09-25T03:59:56.808">
+    <testcase name="BasicGateCreation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="GateTypeCreation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="AllGateTypes" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="SetAndGetSignal" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="ResetSignal" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="AddInputValid" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="AddInputInvalid" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="RemoveInput" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="ANDGateEvaluation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="ORGateEvaluation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="NOTGateEvaluation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="NANDGateEvaluation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="NORGateEvaluation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="XORGateEvaluation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="XNORGateEvaluation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="OutputGateEvaluation" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="EvaluateWithMissingInputs" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="EvaluateInverterWithoutInput" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="EvaluateOutputWithoutInput" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="DisconnectAll" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+    <testcase name="RemoveOutput" status="run" result="completed" time="0" timestamp="2025-09-25T03:59:56.808" classname="GateTest" />
+  </testsuite>
+</testsuites>
