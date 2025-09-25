@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  circuitbuilder:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: circuitbuilder:latest
+    container_name: circuitbuilder-app
+    environment:
+      - DISPLAY=${DISPLAY:-:99}
+      - QT_QPA_PLATFORM=xcb
+    volumes:
+      # For X11 forwarding on Linux
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # For shared memory (improved performance)
+      - /dev/shm:/dev/shm
+    network_mode: host
+    stdin_open: true
+    tty: true
+    privileged: false
+
+  # Development environment with mounted source
+  circuitbuilder-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: circuitbuilder:dev
+    container_name: circuitbuilder-dev
+    environment:
+      - DISPLAY=${DISPLAY:-:99}
+      - QT_QPA_PLATFORM=xcb
+    volumes:
+      - .:/app
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /dev/shm:/dev/shm
+    network_mode: host
+    stdin_open: true
+    tty: true
+    command: bash
+
+  # Test runner service
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    image: circuitbuilder:test
+    container_name: circuitbuilder-test
+    volumes:
+      - .:/app
+      - ./test-reports:/app/test-reports
+    command: ["sh", "-c", "cd /app && ./run-tests.sh"]

@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="startButton">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>220</y>
+      <width>171</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="rsc.qrc">
+      <normaloff>:/BACKGROUND/StartButton.png</normaloff>:/BACKGROUND/StartButton.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>171</width>
+      <height>81</height>
+     </size>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>40</y>
+      <width>401</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+hr { height: 1px; border-width: 0; }
+li.unchecked::marker { content: &quot;\2610&quot;; }
+li.checked::marker { content: &quot;\2612&quot;; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:18pt; font-weight:700;&quot;&gt;Welcome To Our Circuit Building Program!&lt;/span&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;br /&gt;Press &amp;quot;Start Game&amp;quot; to begin building some circuits.&lt;br /&gt;When you start, you will begin on the easier levels and each level after will get slightly harder.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="EvaluateButton">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>471</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Evaluate Circuit</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="previewTableWidget">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>360</y>
+      <width>221</width>
+      <height>111</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="tipDescription">
+    <property name="geometry">
+     <rect>
+      <x>542</x>
+      <y>9</y>
+      <width>191</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>330</y>
+      <width>282</width>
+      <height>236</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="LevelsGrid">
+     <item row="1" column="1">
+      <widget class="QPushButton" name="ButtonLevel8">
+       <property name="text">
+        <string>LEVEL 8</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QPushButton" name="ButtonLevel12">
+       <property name="text">
+        <string>LEVEL 12</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="ButtonLevel10">
+       <property name="text">
+        <string>LEVEL 10</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QPushButton" name="ButtonLevel9">
+       <property name="text">
+        <string>LEVEL 9</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QPushButton" name="ButtonLevel11">
+       <property name="text">
+        <string>LEVEL 11</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="ButtonLevel7">
+       <property name="text">
+        <string>LEVEL 7</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QPushButton" name="ButtonLevel1">
+       <property name="text">
+        <string>LEVEL 1</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="ButtonLevel2">
+       <property name="text">
+        <string>LEVEL 2</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QPushButton" name="ButtonLevel3">
+       <property name="text">
+        <string>LEVEL 3</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QPushButton" name="ButtonLevel4">
+       <property name="text">
+        <string>LEVEL 4</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QPushButton" name="ButtonLevel5">
+       <property name="text">
+        <string>LEVEL 5</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QPushButton" name="ButtonLevel6">
+       <property name="text">
+        <string>LEVEL 6</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>24</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionWire"/>
+   <addaction name="actionDelete"/>
+   <addaction name="actionInverter"/>
+   <addaction name="actionOrGate"/>
+   <addaction name="actionAndGate"/>
+   <addaction name="actionNorGate"/>
+   <addaction name="actionNandGate"/>
+   <addaction name="actionXorGate"/>
+   <addaction name="actionXnorGate"/>
+   <addaction name="actionClear"/>
+   <addaction name="actionMENU"/>
+  </widget>
+  <action name="actionAndGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/AND.png</normaloff>:/GATES/AND.png</iconset>
+   </property>
+   <property name="text">
+    <string>AndGate</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionOrGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/OR.png</normaloff>:/GATES/OR.png</iconset>
+   </property>
+   <property name="text">
+    <string>OrGate</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionInverter">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/NOT.png</normaloff>:/GATES/NOT.png</iconset>
+   </property>
+   <property name="text">
+    <string>Inverter</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionWire">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Wire</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionNandGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/NAND.png</normaloff>:/GATES/NAND.png</iconset>
+   </property>
+   <property name="text">
+    <string>NandGate</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionNorGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/NOR.png</normaloff>:/GATES/NOR.png</iconset>
+   </property>
+   <property name="text">
+    <string>NorGate</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionXorGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/XOR.png</normaloff>:/GATES/XOR.png</iconset>
+   </property>
+   <property name="text">
+    <string>XorGate</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionXnorGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/XNOR.png</normaloff>:/GATES/XNOR.png</iconset>
+   </property>
+   <property name="text">
+    <string>XnorGate</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="icon">
+    <iconset theme="QIcon::ThemeIcon::EditClear"/>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Delete</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionInputGate">
+   <property name="icon">
+    <iconset resource="rsc.qrc">
+     <normaloff>:/GATES/INPUT-OFF.png</normaloff>:/GATES/INPUT-OFF.png</iconset>
+   </property>
+   <property name="text">
+    <string>InputGate</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+  <action name="actionMENU">
+   <property name="text">
+    <string>MENU</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::MenuRole::NoRole</enum>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="rsc.qrc"/>
+ </resources>
+ <connections/>
+</ui>

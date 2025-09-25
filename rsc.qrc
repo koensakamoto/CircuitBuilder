@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/GATES">
+        <file>AND.png</file>
+        <file>NAND.png</file>
+        <file>NOR.png</file>
+        <file>NOT.png</file>
+        <file>OR.png</file>
+        <file>XNOR.png</file>
+        <file>XOR.png</file>
+        <file>INPUT-ON.png</file>
+        <file>INPUT-OFF.png</file>
+    </qresource>
+    <qresource prefix="/BACKGROUND">
+        <file>BGgrid.jpg</file>
+        <file>loadingbackground.jpg</file>
+        <file>StartButton.png</file>
+    </qresource>
+</RCC>

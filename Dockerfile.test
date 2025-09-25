@@ -1,0 +1,63 @@
+# Test runner Dockerfile
+FROM ubuntu:22.04
+
+# Install test dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    wget \
+    gcovr \
+    lcov \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    qt6-base-dev \
+    qt6-base-dev-tools \
+    qmake6 \
+    libgtest-dev \
+    libgmock-dev \
+    libxcb-xinerama0 \
+    libxkbcommon-x11-0 \
+    libxcb-icccm4 \
+    libxcb-image0 \
+    libxcb-keysyms1 \
+    libxcb-randr0 \
+    libxcb-render-util0 \
+    libxcb-xinerama0 \
+    libxcb-xinput0 \
+    libxcb-xfixes0 \
+    libx11-xcb1 \
+    libxcb-shape0 \
+    libxcb-sync1 \
+    libxrender1 \
+    libxi6 \
+    libfontconfig1 \
+    libfreetype6 \
+    libxext6 \
+    libx11-6 \
+    libice6 \
+    libsm6 \
+    libxcb1 \
+    libxcb-glx0 \
+    libxcb-cursor0 \
+    xvfb \
+    && rm -rf /var/lib/apt/lists/*
+
+# Build Google Test
+RUN cd /usr/src/gtest && \
+    cmake . && \
+    make && \
+    cp lib/*.a /usr/lib
+
+# Set working directory
+WORKDIR /app
+
+# Copy project files
+COPY . .
+
+# Set display for GUI tests
+ENV DISPLAY=:99
+ENV QT_QPA_PLATFORM=offscreen
+
+# Default command runs tests
+CMD ["sh", "-c", "Xvfb :99 -screen 0 1024x768x24 & sleep 2 && ./run-tests.sh"]
