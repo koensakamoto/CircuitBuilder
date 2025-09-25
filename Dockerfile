@@ -1,6 +1,10 @@
 # Multi-stage build for Qt application
 FROM ubuntu:22.04 AS builder
 
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
+
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -32,7 +36,6 @@ RUN apt-get update && apt-get install -y \
     libsm6 \
     libxcb1 \
     libxcb-glx0 \
-    libxcb-cursor0 \
     qt6-base-dev \
     qt6-base-dev-tools \
     qmake6 \
@@ -49,6 +52,10 @@ RUN qmake6 CircuitBuilder.pro && make -j$(nproc)
 
 # Runtime stage
 FROM ubuntu:22.04
+
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+ENV TZ=UTC
 
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y \
@@ -78,7 +85,6 @@ RUN apt-get update && apt-get install -y \
     libsm6 \
     libxcb1 \
     libxcb-glx0 \
-    libxcb-cursor0 \
     x11-apps \
     xvfb \
     && rm -rf /var/lib/apt/lists/*
@@ -90,7 +96,7 @@ RUN useradd -m -s /bin/bash appuser
 WORKDIR /app
 
 # Copy built application from builder stage
-COPY --from=builder /app/CircuitBuilder /app/
+COPY --from=builder /app/CircuitBuilderApp /app/
 COPY --from=builder /app/*.png /app/
 COPY --from=builder /app/*.jpg /app/
 
@@ -105,4 +111,4 @@ ENV DISPLAY=:99
 ENV QT_QPA_PLATFORM=xcb
 
 # Entry point for running with virtual display
-CMD ["sh", "-c", "Xvfb :99 -screen 0 1024x768x24 & sleep 2 && ./CircuitBuilder"]
+CMD ["sh", "-c", "Xvfb :99 -screen 0 1024x768x24 & sleep 2 && ./CircuitBuilderApp"]
