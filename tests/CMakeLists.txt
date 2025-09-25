@@ -5,8 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 
-# Find required packages
-find_package(Qt6 REQUIRED COMPONENTS Core Widgets Test)
+# Find required packages (minimal for basic tests)
 find_package(GTest REQUIRED)
 
 # Enable code coverage
@@ -18,9 +17,6 @@ endif()
 # Include directories
 include_directories(
     ${CMAKE_SOURCE_DIR}/../
-    ${Qt6Core_INCLUDE_DIRS}
-    ${Qt6Widgets_INCLUDE_DIRS}
-    ${Qt6Test_INCLUDE_DIRS}
 )
 
 # Source files to test (minimal for now)
@@ -42,9 +38,6 @@ add_executable(circuit_tests
 
 # Link libraries
 target_link_libraries(circuit_tests
-    Qt6::Core
-    Qt6::Widgets
-    Qt6::Test
     GTest::GTest
     GTest::Main
     pthread
