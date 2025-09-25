@@ -5,7 +5,7 @@ FROM ubuntu:22.04
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=UTC
 
-# Install minimal test dependencies only
+# Install test dependencies (including Qt Core for QVector)
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y \
     bc \
     gcovr \
     lcov \
+    qt6-base-dev \
+    xvfb \
     && rm -rf /var/lib/apt/lists/*
 
 # Build Google Test

@@ -18,13 +18,15 @@ cmake ../tests -DCMAKE_BUILD_TYPE=Debug
 echo "Building tests..."
 make -j$(nproc)
 
+# Create test reports directory first
+mkdir -p ../test-reports
+
 # Run tests with coverage
 echo "Running tests..."
 ./circuit_tests --gtest_output=xml:../test-reports/test-results.xml
 
 # Generate coverage report
 echo "Generating coverage reports..."
-mkdir -p ../test-reports
 
 # Generate lcov report
 lcov --capture --directory . --output-file ../test-reports/coverage.info
