@@ -1,16 +1,15 @@
-name: CI/CD Pipeline
+name: Build and Test CircuitBuilder
 
 on:
   push:
     branches: [ main, develop ]
+    tags: [ 'v*' ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
 
 env:
   DOCKER_IMAGE: circuitbuilder
-  AWS_REGION: us-west-2
-  ECR_REPOSITORY: circuitbuilder-ecr
 
 jobs:
   test:
@@ -87,7 +86,7 @@ jobs:
         path: code-coverage-results.md
 
   build:
-    name: Build Docker Image
+    name: Build Desktop Application
     runs-on: ubuntu-latest
     needs: test
 
@@ -103,131 +102,65 @@ jobs:
         docker build -t ${{ env.DOCKER_IMAGE }}:${{ github.sha }} .
         docker tag ${{ env.DOCKER_IMAGE }}:${{ github.sha }} ${{ env.DOCKER_IMAGE }}:latest
 
-    - name: Save Docker image
+    - name: Extract application binary
       run: |
-        docker save ${{ env.DOCKER_IMAGE }}:${{ github.sha }} | gzip > circuitbuilder.tar.gz
+        # Create container and extract built application
+        docker create --name extract ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
+        docker cp extract:/app/CircuitBuilderApp ./CircuitBuilderApp-Linux
+        docker rm extract
 
-    - name: Upload Docker image artifact
+    - name: Upload Linux binary
       uses: actions/upload-artifact@v4
       with:
-        name: docker-image
-        path: circuitbuilder.tar.gz
+        name: circuitbuilder-linux
+        path: CircuitBuilderApp-Linux
 
-  deploy-staging:
-    name: Deploy to Staging
+  release:
+    name: Create Release
     runs-on: ubuntu-latest
     needs: build
-    if: github.ref == 'refs/heads/develop'
-    environment:
-      name: staging
-      url: ${{ steps.deploy.outputs.url }}
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
-
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
-
-    - name: Download Docker image artifact
+    - name: Download Linux binary
       uses: actions/download-artifact@v4
       with:
-        name: docker-image
+        name: circuitbuilder-linux
 
-    - name: Load and push Docker image to ECR
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      run: |
-        docker load < circuitbuilder.tar.gz
-        docker tag ${{ env.DOCKER_IMAGE }}:${{ github.sha }} $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:staging
-        docker push $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:staging
-
-    - name: Deploy to EC2 Staging
-      id: deploy
-      run: |
-        # Deploy using AWS SSM or SSH
-        aws ssm send-command \
-          --instance-ids ${{ secrets.EC2_STAGING_INSTANCE_ID }} \
-          --document-name "AWS-RunShellScript" \
-          --parameters commands=["\
-            docker pull ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:staging && \
-            docker stop circuitbuilder-staging || true && \
-            docker rm circuitbuilder-staging || true && \
-            docker run -d \
-              --name circuitbuilder-staging \
-              -p 8080:80 \
-              --restart unless-stopped \
-              ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:staging\
-          "] \
-          --output text
-        echo "url=http://${{ secrets.EC2_STAGING_IP }}:8080" >> $GITHUB_OUTPUT
-
-  deploy-production:
-    name: Deploy to Production
-    runs-on: ubuntu-latest
-    needs: build
-    if: github.ref == 'refs/heads/main'
-    environment:
-      name: production
-      url: ${{ steps.deploy.outputs.url }}
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+        files: |
+          CircuitBuilderApp-Linux
+        body: |
+          ## CircuitBuilder ${{ github.ref_name }}
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
+          ### Download and Run
 
-    - name: Download Docker image artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: docker-image
+          **Linux:**
+          ```bash
+          chmod +x CircuitBuilderApp-Linux
+          ./CircuitBuilderApp-Linux
+          ```
 
-    - name: Load and push Docker image to ECR
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-      run: |
-        docker load < circuitbuilder.tar.gz
-        docker tag ${{ env.DOCKER_IMAGE }}:${{ github.sha }} $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:production
-        docker tag ${{ env.DOCKER_IMAGE }}:${{ github.sha }} $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:latest
-        docker push $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:production
-        docker push $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:latest
+          **Docker (Any Platform):**
+          ```bash
+          docker pull ${{ env.DOCKER_IMAGE }}:latest
+          docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix ${{ env.DOCKER_IMAGE }}:latest
+          ```
 
-    - name: Deploy to EC2 Production
-      id: deploy
-      run: |
-        # Deploy using AWS SSM or SSH
-        aws ssm send-command \
-          --instance-ids ${{ secrets.EC2_PRODUCTION_INSTANCE_ID }} \
-          --document-name "AWS-RunShellScript" \
-          --parameters commands=["\
-            docker pull ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:production && \
-            docker stop circuitbuilder || true && \
-            docker rm circuitbuilder || true && \
-            docker run -d \
-              --name circuitbuilder \
-              -p 80:80 \
-              --restart always \
-              ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:production\
-          "] \
-          --output text
-        echo "url=http://${{ secrets.EC2_PRODUCTION_IP }}" >> $GITHUB_OUTPUT
+          ### What's New
+          - Educational digital logic circuit simulator
+          - Drag-and-drop logic gates
+          - Real-time circuit simulation
+          - Truth table generation
+
+          Built with Qt 6 and C++17.
 
   security-scan:
     name: Security Scanning
@@ -241,18 +174,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Download Docker image artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: docker-image
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
 
-    - name: Load Docker image
-      run: docker load < circuitbuilder.tar.gz
+    - name: Build Docker image for scanning
+      run: |
+        docker build -t ${{ env.DOCKER_IMAGE }}:scan .
 
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
+        image-ref: ${{ env.DOCKER_IMAGE }}:scan
         format: 'sarif'
         output: 'trivy-results.sarif'
         severity: 'CRITICAL,HIGH'
