@@ -12,7 +12,7 @@ void Circuit::initializeTruthTables(){
     QVector<QVector<int>> input1 = { {0}, {1} };
 
     allTables.append(TruthTable(input1, { 0, 1 },
-                                "Direct pass through: output = input",
+                                "Direct pass through: output = input ",
                                 "This is just a wire. If the input is on the output is on"));
 
     allTables.append(TruthTable(input1, { 1, 0 },
