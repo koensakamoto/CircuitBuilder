@@ -3,9 +3,23 @@ QT       += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
+CONFIG += sdk_no_version_check
 
 # Set the target binary name to avoid conflict with directory
 TARGET = CircuitBuilderApp
+
+# Fix for Qt 6.9.0 including deprecated AGL framework on macOS
+macx {
+    # Force SDK path for Qt Creator (fixes type_traits not found error)
+    QMAKE_MAC_SDK = macosx
+
+    # Explicitly set C++ standard library and SDK paths
+    QMAKE_CXXFLAGS += -stdlib=libc++
+    QMAKE_LFLAGS += -stdlib=libc++
+
+    # Remove AGL from LIBS (Qt 6.9.0 incorrectly adds it)
+    LIBS -= -framework AGL
+}
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -121,6 +135,13 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui
+
+# Create a phony target for Qt Creator's build button
+# Qt Creator tries to build "CircuitBuilderApp" but the actual target is the full .app path
+# This creates an alias target that Qt Creator can use
+CircuitBuilderApp.target = CircuitBuilderApp
+CircuitBuilderApp.depends = first
+QMAKE_EXTRA_TARGETS += CircuitBuilderApp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

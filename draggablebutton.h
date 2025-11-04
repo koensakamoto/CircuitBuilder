@@ -67,36 +67,77 @@ private:
      */
     Gate* gate;
 
+    // Black dot input connection port styling (6x6px for regular gates)
     QString buttonStyle =
         "QPushButton {"
-        "    background-color: transparent;"
-        "    border: 1px solid transparent;"
-        "    border-radius: 7px;"
-        "    color: white;"
-        "    min-width: 15px;"
-        "    min-height: 15px;"
-        "    padding: 0px;"
+        "    background: #1e293b;"
+        "    border: none;"
+        "    border-radius: 3px;"
+        "    color: transparent;"
+        "    font-size: 0pt;"
+        "    min-width: 6px;"
+        "    min-height: 6px;"
+        "    max-width: 6px;"
+        "    max-height: 6px;"
         "}"
         "QPushButton:hover {"
-        "    border: 1px solid white;"
-        "    background-color: rgba(255, 255, 255, 30);"
-        "}";
-
-    QString mainButtonStyle =
-        "QPushButton {"
-        "    background-color: rgba(40, 40, 60, 150);"
-        "    border: 2px solid rgba(80, 100, 255, 120);"
-        "    border-radius: 8px;"
-        "    padding: 5px;"
-
-        "}"
-        "QPushButton:hover {"
-        "    background-color: rgba(50, 50, 70, 170);"
-        "    border: 2px solid purple;"
+        "    background: #fbbf24;"
+        "    border-radius: 4px;"
+        "    min-width: 8px;"
+        "    min-height: 8px;"
+        "    max-width: 8px;"
+        "    max-height: 8px;"
         "}"
         "QPushButton:pressed {"
-        "    background-color: rgba(35, 35, 55, 160);"
-        "    border: 2px solid rgba(60, 80, 255, 120);"
+        "    background: #64748b;"
+        "}";
+
+    // Black dot output connection port styling (6x6px for regular gates)
+    QString outputButtonStyle =
+        "QPushButton {"
+        "    background: #1e293b;"
+        "    border: none;"
+        "    border-radius: 3px;"
+        "    color: transparent;"
+        "    font-size: 0pt;"
+        "    min-width: 6px;"
+        "    min-height: 6px;"
+        "    max-width: 6px;"
+        "    max-height: 6px;"
+        "}"
+        "QPushButton:hover {"
+        "    background: #fbbf24;"
+        "    border-radius: 4px;"
+        "    min-width: 8px;"
+        "    min-height: 8px;"
+        "    max-width: 8px;"
+        "    max-height: 8px;"
+        "}"
+        "QPushButton:pressed {"
+        "    background: #64748b;"
+        "}";
+
+    // Premium gate button styling matching the cohesive theme
+    QString mainButtonStyle =
+        "QPushButton {"
+        "    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
+        "                                 stop:0 rgba(14, 165, 233, 200),"
+        "                                 stop:1 rgba(2, 132, 199, 220));"
+        "    border: 3px solid #0284c7;"
+        "    border-radius: 10px;"
+        "    padding: 5px;"
+        "}"
+        "QPushButton:hover {"
+        "    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
+        "                                 stop:0 rgba(56, 189, 248, 230),"
+        "                                 stop:1 rgba(14, 165, 233, 240));"
+        "    border: 3px solid #fbbf24;"
+        "}"
+        "QPushButton:pressed {"
+        "    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
+        "                                 stop:0 rgba(2, 132, 199, 210),"
+        "                                 stop:1 rgba(3, 105, 161, 220));"
+        "    border: 3px solid #0369a1;"
         "}";
 
 

@@ -161,6 +161,8 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         macdeployqt CircuitBuilderApp.app
+        # Remove quarantine attributes to prevent "damaged" warnings
+        find CircuitBuilderApp.app -exec xattr -d com.apple.quarantine {} \; 2>/dev/null || true
         create-dmg --volname "CircuitBuilder" --window-pos 200 120 --window-size 600 300 --icon-size 100 --app-drop-link 425 120 ${{ matrix.artifact_name }} CircuitBuilderApp.app
 
     - name: Prepare Linux binary

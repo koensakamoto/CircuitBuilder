@@ -6,44 +6,46 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>720</height>
+    <width>1440</width>
+    <height>900</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>1280</width>
+    <height>800</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Circuit Builder - Educational Logic Gate Simulator</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>220</y>
-      <width>171</width>
-      <height>71</height>
+      <x>575</x>
+      <y>340</y>
+      <width>290</width>
+      <height>90</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>START GAME</string>
     </property>
-    <property name="icon">
-     <iconset resource="rsc.qrc">
-      <normaloff>:/BACKGROUND/StartButton.png</normaloff>:/BACKGROUND/StartButton.png</iconset>
-    </property>
-    <property name="iconSize">
-     <size>
-      <width>171</width>
-      <height>81</height>
-     </size>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+      <bold>true</bold>
+     </font>
     </property>
    </widget>
    <widget class="QTextEdit" name="textEdit">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>40</y>
-      <width>401</width>
-      <height>171</height>
+      <x>370</x>
+      <y>80</y>
+      <width>700</width>
+      <height>240</height>
      </rect>
     </property>
     <property name="html">
@@ -54,39 +56,82 @@ hr { height: 1px; border-width: 0; }
 li.unchecked::marker { content: &quot;\2610&quot;; }
 li.checked::marker { content: &quot;\2612&quot;; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'.AppleSystemUIFont'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:18pt; font-weight:700;&quot;&gt;Welcome To Our Circuit Building Program!&lt;/span&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;br /&gt;Press &amp;quot;Start Game&amp;quot; to begin building some circuits.&lt;br /&gt;When you start, you will begin on the easier levels and each level after will get slightly harder.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p align=&quot;center&quot; style=&quot; margin-top:20px; margin-bottom:5px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:42pt; font-weight:700; color:#00b4d8;&quot;&gt;CIRCUIT BUILDER&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:12px; margin-bottom:10px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:18pt; font-weight:600; color:#2d3748;&quot;&gt;Master Digital Logic Through Interactive Design&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:16px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:15pt; font-weight:600; color:#0096c7;&quot;&gt;Select a Level Below or Click Start Game&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:10px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:14pt; color:#4a5568;&quot;&gt;12 Progressive Levels - Easy to Expert&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:6px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Segoe UI'; font-size:14pt; color:#4a5568;&quot;&gt;AND - OR - NOT - NAND - NOR - XOR - XNOR&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="EvaluateButton">
     <property name="geometry">
      <rect>
-      <x>560</x>
-      <y>471</y>
-      <width>121</width>
-      <height>41</height>
+      <x>1100</x>
+      <y>780</y>
+      <width>280</width>
+      <height>70</height>
      </rect>
     </property>
     <property name="text">
      <string>Evaluate Circuit</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="menuButton">
+    <property name="geometry">
+     <rect>
+      <x>1280</x>
+      <y>15</y>
+      <width>140</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>MENU</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="truthTableTitle">
+    <property name="geometry">
+     <rect>
+      <x>520</x>
+      <y>90</y>
+      <width>400</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TRUTH TABLE</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
    <widget class="QTableWidget" name="previewTableWidget">
     <property name="geometry">
      <rect>
+      <x>520</x>
+      <y>140</y>
+      <width>420</width>
+      <height>470</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QWidget" name="truthTableContainer">
+    <property name="geometry">
+     <rect>
       <x>510</x>
-      <y>360</y>
-      <width>221</width>
-      <height>111</height>
+      <y>85</y>
+      <width>420</width>
+      <height>550</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="tipDescription">
     <property name="geometry">
      <rect>
-      <x>542</x>
-      <y>9</y>
-      <width>191</width>
-      <height>71</height>
+      <x>520</x>
+      <y>30</y>
+      <width>380</width>
+      <height>50</height>
      </rect>
     </property>
     <property name="text">
@@ -99,13 +144,28 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>330</y>
-      <width>282</width>
-      <height>236</height>
+      <x>320</x>
+      <y>430</y>
+      <width>800</width>
+      <height>480</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="LevelsGrid">
+     <property name="spacing">
+      <number>12</number>
+     </property>
+     <property name="leftMargin">
+      <number>10</number>
+     </property>
+     <property name="topMargin">
+      <number>10</number>
+     </property>
+     <property name="rightMargin">
+      <number>10</number>
+     </property>
+     <property name="bottomMargin">
+      <number>10</number>
+     </property>
      <item row="1" column="1">
       <widget class="QPushButton" name="ButtonLevel8">
        <property name="text">
@@ -198,7 +258,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>1440</width>
      <height>24</height>
     </rect>
    </property>
@@ -216,6 +276,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </attribute>
    <addaction name="actionWire"/>
    <addaction name="actionDelete"/>
+   <addaction name="actionClear"/>
    <addaction name="actionInverter"/>
    <addaction name="actionOrGate"/>
    <addaction name="actionAndGate"/>
@@ -223,8 +284,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
    <addaction name="actionNandGate"/>
    <addaction name="actionXorGate"/>
    <addaction name="actionXnorGate"/>
-   <addaction name="actionClear"/>
-   <addaction name="actionMENU"/>
   </widget>
   <action name="actionAndGate">
    <property name="icon">
@@ -267,7 +326,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Wire</string>
+    <string>WIRE
+MODE</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>
@@ -326,7 +386,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <iconset theme="QIcon::ThemeIcon::EditClear"/>
    </property>
    <property name="text">
-    <string>Clear</string>
+    <string>CLEAR
+ALL</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>
@@ -337,7 +398,8 @@ li.checked::marker { content: &quot;\2612&quot;; }
     <bool>true</bool>
    </property>
    <property name="text">
-    <string>Delete</string>
+    <string>X
+DELETE</string>
    </property>
    <property name="menuRole">
     <enum>QAction::MenuRole::NoRole</enum>

@@ -5,38 +5,81 @@ DraggableButton::DraggableButton() {
 
 DraggableButton::DraggableButton(GateType gateType, QWidget *parent, Gate* gate)
     : QPushButton(parent),
-    input1{QPushButton("1", this)}, input2{QPushButton("2", this)}, output{QPushButton("out", this)},
+    input1{QPushButton("", this)}, input2{QPushButton("", this)}, output{QPushButton("", this)},
     gate(gate), gateType(gateType), onIcon(":/GATES/INPUT-ON.png"), offIcon(":/GATES/INPUT-OFF.png"), isDelete(false)
 {
     this->setStyleSheet(mainButtonStyle);
 
+    // Apply minimal port styles - blue dots for inputs, green dots for output
     input1.setStyleSheet(buttonStyle);
     input2.setStyleSheet(buttonStyle);
-    output.setStyleSheet(buttonStyle);
+    output.setStyleSheet(outputButtonStyle);
 
-    input1.setFixedSize(18, 18);
-    input2.setFixedSize(18, 18);
-    output.setFixedSize(22, 20);
+    // Dot sizes: regular gates = 6x6px, INPUT/OUTPUT gates = 9x9px
+    input1.setFixedSize(6, 6);
+    input2.setFixedSize(6, 6);
+    output.setFixedSize(6, 6);
 
-    input1.move(0, 5);
-    input2.move(0, 25);
-    output.move(28, 15);
+    // Position dots on gate edges
+    input1.move(-1, 10);
+    input2.move(-1, 34);
+    output.move(45, 22);
 
 
     if (gateType == INVERTER){
         input2.hide();
-        input1.move(0, 5);
+        input1.move(-1, 22);  // Center vertically for single input
         connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
         connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
     }
     else if(gateType == INPUT){
         input1.hide();
         input2.hide();
+        // Black output dot for INPUT gate (11x11px)
+        output.setFixedSize(11, 11);
+        output.setStyleSheet(
+            "QPushButton {"
+            "    background: #1e293b;"
+            "    border: none;"
+            "    border-radius: 5px;"
+            "}"
+            "QPushButton:hover {"
+            "    background: #fbbf24;"
+            "    border-radius: 6px;"
+            "    min-width: 13px; min-height: 13px; max-width: 13px; max-height: 13px;"
+            "}"
+            "QPushButton:pressed {"
+            "    background: #64748b;"
+            "}"
+        );
+        output.move(43, 20);  // Output dot on right side for INPUT gate
+        output.show();  // Explicitly show the output dot
+        output.raise();  // Ensure dot is above the gate icon
         connect(&output, &QPushButton::clicked, this, &DraggableButton::outputClicked);
     }
     else if (gateType == OUTPUT){
         input2.hide();
         output.hide();
+        // Black input dot for OUTPUT gate (11x11px)
+        input1.setFixedSize(11, 11);
+        input1.setStyleSheet(
+            "QPushButton {"
+            "    background: #1e293b;"
+            "    border: none;"
+            "    border-radius: 5px;"
+            "}"
+            "QPushButton:hover {"
+            "    background: #fbbf24;"
+            "    border-radius: 6px;"
+            "    min-width: 13px; min-height: 13px; max-width: 13px; max-height: 13px;"
+            "}"
+            "QPushButton:pressed {"
+            "    background: #64748b;"
+            "}"
+        );
+        input1.move(-3, 20);  // Input dot on left side for OUTPUT gate
+        input1.show();  // Explicitly show the input dot
+        input1.raise();  // Ensure dot is above the gate icon
         connect(&input1, &QPushButton::clicked, this, &DraggableButton::input1Clicked);
     }
     else{
