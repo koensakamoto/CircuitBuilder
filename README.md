@@ -4,7 +4,11 @@ An educational digital logic circuit simulator that teaches boolean logic and ci
 
 ## Demo
 
-![CircuitBuilder Demo](circuit-builder-demo.mp4)
+<div align="center">
+  <video src="circuit-builder-demo.mp4" width="800" controls>
+    Your browser does not support the video tag.
+  </video>
+</div>
 
 ## How It Works
 
