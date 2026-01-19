@@ -4,9 +4,7 @@ An educational digital logic circuit simulator that teaches boolean logic and ci
 
 ## Demo
 
-https://github.com/koensakamoto/CircuitBuilder/assets/circuit-builder-demo.mp4
-
-> **Note**: Watch the video above to see CircuitBuilder in action - building logic gates, connecting circuits, and testing with truth tables!
+![CircuitBuilder Demo](circuit-builder-demo.mp4)
 
 ## How It Works
 
