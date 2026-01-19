@@ -227,35 +227,36 @@ private:
     void drawWireArrow(QPoint start,  QPoint end, bool animating);
 
     /**
-     * @brief levelButtonStyle for level buttons
+     * @brief levelButtonStyle for level buttons - dark theme
      */
     QString levelButtonStyle =
         "QPushButton {"
         "    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                 stop:0 #38bdf8, stop:1 #0ea5e9);"
-        "    border: 4px solid #0ea5e9;"
-        "    border-radius: 18px;"
-        "    color: white;"
-        "    font-size: 15pt;"
+        "                                 stop:0 rgba(51, 65, 85, 200), stop:1 rgba(30, 41, 59, 220));"
+        "    border: 1px solid rgba(71, 85, 105, 150);"
+        "    border-radius: 12px;"
+        "    color: #e2e8f0;"
+        "    font-size: 13pt;"
         "    font-weight: bold;"
-        "    padding: 10px;"
-        "    min-height: 45px;"
-        "    min-width: 180px;"
+        "    padding: 12px;"
+        "    min-height: 40px;"
+        "    min-width: 160px;"
         "}"
         "QPushButton:hover {"
         "    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                 stop:0 #7dd3fc, stop:1 #38bdf8);"
-        "    border: 4px solid #fbbf24;"
-        "    transform: scale(1.02);"
+        "                                 stop:0 rgba(56, 189, 248, 60), stop:1 rgba(14, 165, 233, 80));"
+        "    border: 1px solid rgba(56, 189, 248, 200);"
+        "    color: #38bdf8;"
         "}"
         "QPushButton:pressed {"
         "    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                 stop:0 #0ea5e9, stop:1 #0284c7);"
-        "    border: 4px solid #0284c7;"
+        "                                 stop:0 rgba(14, 165, 233, 150), stop:1 rgba(2, 132, 199, 180));"
+        "    border: 1px solid #0ea5e9;"
+        "    color: white;"
         "}"
         "QPushButton:disabled {"
-        "    background: #cbd5e1;"
-        "    border: 3px solid #94a3b8;"
+        "    background: rgba(51, 65, 85, 100);"
+        "    border: 1px solid rgba(71, 85, 105, 80);"
         "    color: #64748b;"
         "}";
     /**
@@ -263,6 +264,16 @@ private:
      */
     void startGame();
 
+    /**
+     * @brief Centers welcome screen elements horizontally.
+     */
+    void centerWelcomeScreen();
+
+protected:
+    /**
+     * @brief Override resize event to re-center welcome screen when window is resized.
+     */
+    void resizeEvent(QResizeEvent *event) override;
 
 signals:
 

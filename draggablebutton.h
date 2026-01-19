@@ -67,77 +67,63 @@ private:
      */
     Gate* gate;
 
-    // Black dot input connection port styling (6x6px for regular gates)
+    // Input connection port - circular cyan dot (matches INPUT/OUTPUT gates)
     QString buttonStyle =
         "QPushButton {"
         "    background: #1e293b;"
-        "    border: none;"
-        "    border-radius: 3px;"
-        "    color: transparent;"
-        "    font-size: 0pt;"
-        "    min-width: 6px;"
-        "    min-height: 6px;"
-        "    max-width: 6px;"
-        "    max-height: 6px;"
-        "}"
-        "QPushButton:hover {"
-        "    background: #fbbf24;"
+        "    border: 1px solid #38bdf8;"
         "    border-radius: 4px;"
         "    min-width: 8px;"
         "    min-height: 8px;"
         "    max-width: 8px;"
         "    max-height: 8px;"
         "}"
+        "QPushButton:hover {"
+        "    background: #38bdf8;"
+        "}"
         "QPushButton:pressed {"
-        "    background: #64748b;"
+        "    background: #0ea5e9;"
         "}";
 
-    // Black dot output connection port styling (6x6px for regular gates)
+    // Output connection port - circular green dot (matches INPUT/OUTPUT gates)
     QString outputButtonStyle =
         "QPushButton {"
         "    background: #1e293b;"
-        "    border: none;"
-        "    border-radius: 3px;"
-        "    color: transparent;"
-        "    font-size: 0pt;"
-        "    min-width: 6px;"
-        "    min-height: 6px;"
-        "    max-width: 6px;"
-        "    max-height: 6px;"
-        "}"
-        "QPushButton:hover {"
-        "    background: #fbbf24;"
+        "    border: 1px solid #34d399;"
         "    border-radius: 4px;"
         "    min-width: 8px;"
         "    min-height: 8px;"
         "    max-width: 8px;"
         "    max-height: 8px;"
         "}"
+        "QPushButton:hover {"
+        "    background: #34d399;"
+        "}"
         "QPushButton:pressed {"
-        "    background: #64748b;"
+        "    background: #10b981;"
         "}";
 
-    // Premium gate button styling matching the cohesive theme
+    // Dark theme gate button styling - use DraggableButton selector to avoid affecting child port buttons
     QString mainButtonStyle =
-        "QPushButton {"
+        "DraggableButton {"
         "    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                 stop:0 rgba(14, 165, 233, 200),"
-        "                                 stop:1 rgba(2, 132, 199, 220));"
-        "    border: 3px solid #0284c7;"
+        "                                 stop:0 rgba(51, 65, 85, 200),"
+        "                                 stop:1 rgba(30, 41, 59, 220));"
+        "    border: 1px solid rgba(71, 85, 105, 150);"
         "    border-radius: 10px;"
         "    padding: 5px;"
         "}"
-        "QPushButton:hover {"
+        "DraggableButton:hover {"
         "    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                 stop:0 rgba(56, 189, 248, 230),"
-        "                                 stop:1 rgba(14, 165, 233, 240));"
-        "    border: 3px solid #fbbf24;"
+        "                                 stop:0 rgba(56, 189, 248, 80),"
+        "                                 stop:1 rgba(14, 165, 233, 100));"
+        "    border: 1px solid rgba(56, 189, 248, 200);"
         "}"
-        "QPushButton:pressed {"
+        "DraggableButton:pressed {"
         "    background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                 stop:0 rgba(2, 132, 199, 210),"
-        "                                 stop:1 rgba(3, 105, 161, 220));"
-        "    border: 3px solid #0369a1;"
+        "                                 stop:0 rgba(14, 165, 233, 150),"
+        "                                 stop:1 rgba(2, 132, 199, 180));"
+        "    border: 1px solid rgba(14, 165, 233, 200);"
         "}";
 
 
@@ -182,6 +168,11 @@ public:
      * @return The gate object the DraggableButton is representing.
      */
     Gate* getGate();
+
+    /**
+     * @return The gate type of this button.
+     */
+    GateType getGateType() const { return gateType; }
 
 public slots:
 

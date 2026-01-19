@@ -2,6 +2,12 @@
 
 An educational digital logic circuit simulator that teaches boolean logic and circuit design through interactive drag-and-drop gameplay.
 
+## Demo
+
+https://github.com/koensakamoto/CircuitBuilder/assets/circuit-builder-demo.mp4
+
+> **Note**: Watch the video above to see CircuitBuilder in action - building logic gates, connecting circuits, and testing with truth tables!
+
 ## How It Works
 
 CircuitBuilder is a visual learning tool where students build digital circuits by dragging logic gates onto a canvas and connecting them with wires. The application simulates the circuit in real-time, showing how signals flow through gates and produce outputs.

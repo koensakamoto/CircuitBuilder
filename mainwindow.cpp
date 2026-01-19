@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include "draggablebutton.h"
 #include <QMessageBox>
+#include <QResizeEvent>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -14,91 +15,85 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Apply clean and cohesive modern theme with blue accents
+    // Apply modern, sleek dark theme with vibrant accents
     this->setStyleSheet(
         "QMainWindow {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #f8fafc, stop:0.5 #e0f2fe, stop:1 #dbeafe);"
+        "                                stop:0 #0f172a, stop:0.5 #1e293b, stop:1 #0f172a);"
         "}"
         "QWidget#centralwidget {"
         "   background: transparent;"
         "}"
         "QToolBar {"
         "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-        "                                stop:0 #ffffff, stop:1 #f0f9ff);"
+        "                                stop:0 rgba(30, 41, 59, 245), stop:1 rgba(15, 23, 42, 250));"
         "   border: none;"
-        "   border-right: 3px solid #00b4d8;"
-        "   spacing: 12px;"
-        "   padding: 15px 8px;"
+        "   border-right: 1px solid rgba(56, 189, 248, 100);"
+        "   spacing: 8px;"
+        "   padding: 12px 6px;"
         "}"
         "QToolBar::separator {"
-        "   background: #00b4d8;"
+        "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
+        "                                stop:0 transparent, stop:0.3 rgba(56, 189, 248, 80),"
+        "                                stop:0.5 rgba(56, 189, 248, 150), stop:0.7 rgba(56, 189, 248, 80), stop:1 transparent);"
         "   width: 2px;"
-        "   margin: 8px 0px;"
+        "   margin: 10px 4px;"
         "}"
         "QToolBar QToolButton {"
         "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-        "                                stop:0 #38bdf8, stop:1 #0ea5e9);"
-        "   border: 2px solid #0ea5e9;"
-        "   border-radius: 8px;"
+        "                                stop:0 rgba(51, 65, 85, 200), stop:1 rgba(30, 41, 59, 220));"
+        "   border: 1px solid rgba(71, 85, 105, 150);"
+        "   border-radius: 10px;"
         "   padding: 6px;"
-        "   margin: 4px 2px;"
-        "   min-width: 48px;"
-        "   min-height: 48px;"
-        "   max-width: 48px;"
-        "   max-height: 48px;"
-        "   color: white;"
+        "   margin: 3px 2px;"
+        "   min-width: 52px;"
+        "   min-height: 52px;"
+        "   max-width: 52px;"
+        "   max-height: 52px;"
+        "   color: #e2e8f0;"
         "   font-weight: bold;"
         "}"
         "QToolBar QToolButton:hover {"
         "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-        "                                stop:0 #7dd3fc, stop:1 #38bdf8);"
-        "   border: 2px solid #38bdf8;"
-        "   transform: scale(1.05);"
+        "                                stop:0 rgba(56, 189, 248, 60), stop:1 rgba(14, 165, 233, 80));"
+        "   border: 1px solid rgba(56, 189, 248, 200);"
         "}"
         "QToolBar QToolButton:pressed {"
         "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-        "                                stop:0 #0ea5e9, stop:1 #0284c7);"
-        "   border: 2px solid #0284c7;"
+        "                                stop:0 rgba(14, 165, 233, 150), stop:1 rgba(2, 132, 199, 180));"
+        "   border: 1px solid #0ea5e9;"
         "}"
         "QToolBar QToolButton:checked {"
         "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-        "                                stop:0 #fbbf24, stop:1 #f59e0b);"
-        "   border: 3px solid #fbbf24;"
-        "   box-shadow: 0 0 20px #fbbf24;"
+        "                                stop:0 rgba(251, 191, 36, 200), stop:1 rgba(245, 158, 11, 220));"
+        "   border: 2px solid #fbbf24;"
         "}"
         "QToolBar QToolButton:disabled {"
-        "   background: #cbd5e1;"
-        "   border: 2px solid #94a3b8;"
+        "   background: rgba(51, 65, 85, 100);"
+        "   border: 1px solid rgba(71, 85, 105, 80);"
         "   color: #64748b;"
         "}"
         "QStatusBar {"
-        "   background: qlineargradient(x1:0, y1:0, x2:1, y2:0,"
-        "                                stop:0 #ffffff, stop:1 #f0f9ff);"
-        "   color: #1e293b;"
-        "   border-top: 2px solid #00b4d8;"
-        "   padding: 8px;"
-        "   font-size: 11pt;"
+        "   background: rgba(15, 23, 42, 240);"
+        "   color: #94a3b8;"
+        "   border-top: 1px solid rgba(56, 189, 248, 60);"
+        "   padding: 6px 12px;"
+        "   font-size: 10pt;"
         "   font-weight: 500;"
         "}"
         "QTextEdit {"
-        "   background: #ffffff;"
-        "   border: 4px solid #00b4d8;"
-        "   border-radius: 20px;"
-        "   padding: 25px;"
+        "   background: rgba(30, 41, 59, 200);"
+        "   border: 1px solid rgba(56, 189, 248, 100);"
+        "   border-radius: 16px;"
+        "   padding: 20px;"
         "   font-size: 14pt;"
-        "   selection-background-color: #bae6fd;"
-        "   color: #1e293b;"
-        "}"
-        "QPushButton {"
-        "   font-size: 12pt;"
-        "   font-weight: bold;"
-        "   color: white;"
+        "   selection-background-color: rgba(56, 189, 248, 100);"
+        "   color: #e2e8f0;"
         "}"
         "QMenuBar {"
-        "   background: #ffffff;"
-        "   color: #1e293b;"
-        "   border-bottom: 2px solid #00b4d8;"
+        "   background: rgba(15, 23, 42, 250);"
+        "   color: #e2e8f0;"
+        "   border-bottom: 1px solid rgba(56, 189, 248, 60);"
         "   padding: 4px;"
         "}"
         "QMenuBar::item {"
@@ -107,8 +102,38 @@ MainWindow::MainWindow(QWidget *parent)
         "   border-radius: 6px;"
         "}"
         "QMenuBar::item:selected {"
-        "   background: #00b4d8;"
+        "   background: rgba(56, 189, 248, 150);"
         "   color: white;"
+        "}"
+        "QMenu {"
+        "   background: rgba(30, 41, 59, 250);"
+        "   border: 1px solid rgba(56, 189, 248, 100);"
+        "   border-radius: 8px;"
+        "   padding: 8px 4px;"
+        "}"
+        "QMenu::item {"
+        "   background: transparent;"
+        "   padding: 8px 24px 8px 16px;"
+        "   border-radius: 4px;"
+        "   margin: 2px 4px;"
+        "   color: #e2e8f0;"
+        "}"
+        "QMenu::item:selected {"
+        "   background: rgba(56, 189, 248, 150);"
+        "   color: white;"
+        "}"
+        "QMenu::separator {"
+        "   height: 1px;"
+        "   background: rgba(71, 85, 105, 150);"
+        "   margin: 6px 12px;"
+        "}"
+        "QToolTip {"
+        "   background: rgba(15, 23, 42, 250);"
+        "   color: #e2e8f0;"
+        "   border: 1px solid rgba(56, 189, 248, 150);"
+        "   border-radius: 6px;"
+        "   padding: 8px 12px;"
+        "   font-size: 10pt;"
         "}"
     );
 
@@ -158,32 +183,34 @@ MainWindow::MainWindow(QWidget *parent)
         deleteWidget->setStyleSheet(
             "QToolButton {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #f87171, stop:1 #ef4444);"
-            "   border: 2px solid #ef4444;"
-            "   border-radius: 8px;"
-            "   padding: 8px;"
-            "   margin: 4px 2px;"
-            "   min-width: 48px;"
-            "   min-height: 48px;"
-            "   max-width: 48px;"
-            "   max-height: 48px;"
-            "   color: white;"
+            "                                stop:0 rgba(239, 68, 68, 40), stop:1 rgba(220, 38, 38, 60));"
+            "   border: 1px solid rgba(239, 68, 68, 150);"
+            "   border-radius: 10px;"
+            "   padding: 6px;"
+            "   margin: 3px 2px;"
+            "   min-width: 52px;"
+            "   min-height: 52px;"
+            "   max-width: 52px;"
+            "   max-height: 52px;"
+            "   color: #fca5a5;"
             "   font-weight: bold;"
             "   font-size: 8pt;"
             "}"
             "QToolButton:hover {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #fca5a5, stop:1 #f87171);"
-            "   border: 2px solid #fca5a5;"
+            "                                stop:0 rgba(239, 68, 68, 100), stop:1 rgba(220, 38, 38, 120));"
+            "   border: 1px solid rgba(248, 113, 113, 200);"
+            "   color: #fecaca;"
             "}"
             "QToolButton:checked {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #ef4444, stop:1 #dc2626);"
-            "   border: 3px solid #fbbf24;"
+            "                                stop:0 rgba(239, 68, 68, 200), stop:1 rgba(220, 38, 38, 220));"
+            "   border: 2px solid #ef4444;"
+            "   color: white;"
             "}"
             "QToolButton:pressed {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #dc2626, stop:1 #b91c1c);"
+            "                                stop:0 rgba(220, 38, 38, 180), stop:1 rgba(185, 28, 28, 200));"
             "}"
         );
     }
@@ -194,32 +221,34 @@ MainWindow::MainWindow(QWidget *parent)
         wireWidget->setStyleSheet(
             "QToolButton {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #4ade80, stop:1 #22c55e);"
-            "   border: 2px solid #22c55e;"
-            "   border-radius: 8px;"
-            "   padding: 8px;"
-            "   margin: 4px 2px;"
-            "   min-width: 48px;"
-            "   min-height: 48px;"
-            "   max-width: 48px;"
-            "   max-height: 48px;"
-            "   color: white;"
+            "                                stop:0 rgba(34, 197, 94, 40), stop:1 rgba(22, 163, 74, 60));"
+            "   border: 1px solid rgba(34, 197, 94, 150);"
+            "   border-radius: 10px;"
+            "   padding: 6px;"
+            "   margin: 3px 2px;"
+            "   min-width: 52px;"
+            "   min-height: 52px;"
+            "   max-width: 52px;"
+            "   max-height: 52px;"
+            "   color: #86efac;"
             "   font-weight: bold;"
             "   font-size: 8pt;"
             "}"
             "QToolButton:hover {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #86efac, stop:1 #4ade80);"
-            "   border: 2px solid #86efac;"
+            "                                stop:0 rgba(34, 197, 94, 100), stop:1 rgba(22, 163, 74, 120));"
+            "   border: 1px solid rgba(74, 222, 128, 200);"
+            "   color: #bbf7d0;"
             "}"
             "QToolButton:checked {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #22c55e, stop:1 #16a34a);"
-            "   border: 3px solid #fbbf24;"
+            "                                stop:0 rgba(34, 197, 94, 200), stop:1 rgba(22, 163, 74, 220));"
+            "   border: 2px solid #22c55e;"
+            "   color: white;"
             "}"
             "QToolButton:pressed {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #16a34a, stop:1 #15803d);"
+            "                                stop:0 rgba(22, 163, 74, 180), stop:1 rgba(21, 128, 61, 200));"
             "}"
         );
     }
@@ -238,61 +267,61 @@ MainWindow::MainWindow(QWidget *parent)
     // Hide game control buttons on welcome screen
     ui->menuButton->hide();
 
-    // Style the Menu button with cohesive amber/warning theme
+    // Style the Menu button with sleek dark theme
     ui->menuButton->setStyleSheet(
         "QPushButton {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #fbbf24, stop:1 #f59e0b);"
-        "   border: 3px solid #f59e0b;"
-        "   border-radius: 12px;"
-        "   color: white;"
-        "   font-size: 13pt;"
+        "                                stop:0 rgba(51, 65, 85, 200), stop:1 rgba(30, 41, 59, 220));"
+        "   border: 1px solid rgba(148, 163, 184, 100);"
+        "   border-radius: 10px;"
+        "   color: #e2e8f0;"
+        "   font-size: 11pt;"
         "   font-weight: bold;"
+        "   padding: 8px 16px;"
         "}"
         "QPushButton:hover {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #fcd34d, stop:1 #fbbf24);"
-        "   border: 3px solid #fcd34d;"
+        "                                stop:0 rgba(71, 85, 105, 200), stop:1 rgba(51, 65, 85, 220));"
+        "   border: 1px solid rgba(56, 189, 248, 150);"
+        "   color: #38bdf8;"
         "}"
         "QPushButton:pressed {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #f59e0b, stop:1 #d97706);"
+        "                                stop:0 rgba(30, 41, 59, 220), stop:1 rgba(15, 23, 42, 240));"
         "}"
     );
 
     // Set tooltip for the menu button
     ui->menuButton->setToolTip("Return to main menu");
 
-    // Style Clear All button in toolbar with cohesive orange/amber theme
+    // Style Clear All button in toolbar with dark theme orange accent
     QWidget* clearWidget = ui->toolBar->widgetForAction(ui->actionClear);
     if (clearWidget) {
         clearWidget->setStyleSheet(
             "QToolButton {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 rgba(251, 146, 60, 200),"
-            "                                stop:1 rgba(249, 115, 22, 220));"
-            "   border: 2px solid rgba(249, 115, 22, 200);"
-            "   border-radius: 8px;"
+            "                                stop:0 rgba(249, 115, 22, 40), stop:1 rgba(234, 88, 12, 60));"
+            "   border: 1px solid rgba(249, 115, 22, 150);"
+            "   border-radius: 10px;"
             "   padding: 6px;"
-            "   margin: 4px 2px;"
-            "   min-width: 48px;"
-            "   min-height: 48px;"
-            "   max-width: 48px;"
-            "   max-height: 48px;"
-            "   color: white;"
+            "   margin: 3px 2px;"
+            "   min-width: 52px;"
+            "   min-height: 52px;"
+            "   max-width: 52px;"
+            "   max-height: 52px;"
+            "   color: #fdba74;"
             "   font-weight: bold;"
             "   font-size: 8pt;"
             "}"
             "QToolButton:hover {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 rgba(253, 186, 116, 250),"
-            "                                stop:1 rgba(251, 146, 60, 250));"
-            "   border: 2px solid rgba(253, 186, 116, 255);"
+            "                                stop:0 rgba(249, 115, 22, 100), stop:1 rgba(234, 88, 12, 120));"
+            "   border: 1px solid rgba(251, 146, 60, 200);"
+            "   color: #fed7aa;"
             "}"
             "QToolButton:pressed {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 rgba(249, 115, 22, 255),"
-            "                                stop:1 rgba(234, 88, 12, 255));"
+            "                                stop:0 rgba(234, 88, 12, 180), stop:1 rgba(194, 65, 12, 200));"
             "}"
         );
     }
@@ -355,30 +384,31 @@ MainWindow::MainWindow(QWidget *parent)
     ui->gridLayoutWidget->raise();
     ui->menuButton->raise();
 
-    // Style the Start Button with cohesive blue theme
+    // Center welcome screen elements after window is fully shown
+    QTimer::singleShot(100, this, &MainWindow::centerWelcomeScreen);
+
+    // Style the Start Button with glowing cyan accent
     ui->startButton->setStyleSheet(
         "QPushButton {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #38bdf8, stop:1 #0ea5e9);"
-        "   border: 5px solid #0ea5e9;"
-        "   border-radius: 20px;"
+        "                                stop:0 rgba(14, 165, 233, 180), stop:1 rgba(6, 182, 212, 200));"
+        "   border: 2px solid rgba(56, 189, 248, 200);"
+        "   border-radius: 16px;"
         "   color: white;"
-        "   font-size: 18pt;"
+        "   font-size: 16pt;"
         "   font-weight: bold;"
-        "   padding: 10px 20px;"
-        "   text-transform: uppercase;"
-        "   letter-spacing: 2px;"
+        "   padding: 12px 24px;"
+        "   letter-spacing: 3px;"
         "}"
         "QPushButton:hover {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #7dd3fc, stop:1 #38bdf8);"
-        "   border: 5px solid #fbbf24;"
-        "   transform: scale(1.05);"
+        "                                stop:0 rgba(56, 189, 248, 200), stop:1 rgba(34, 211, 238, 220));"
+        "   border: 2px solid rgba(103, 232, 249, 255);"
         "}"
         "QPushButton:pressed {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #0ea5e9, stop:1 #0284c7);"
-        "   border: 5px solid #0284c7;"
+        "                                stop:0 rgba(6, 182, 212, 200), stop:1 rgba(8, 145, 178, 220));"
+        "   border: 2px solid rgba(14, 165, 233, 200);"
         "}"
     );
 
@@ -394,75 +424,71 @@ MainWindow::MainWindow(QWidget *parent)
         }
     }
 
-    // Style the Evaluate Button with cohesive green success theme
+    // Style the Evaluate Button with glowing green accent
     ui->EvaluateButton->setStyleSheet(
         "QPushButton {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #34d399, stop:1 #10b981);"
+        "                                stop:0 rgba(16, 185, 129, 180), stop:1 rgba(5, 150, 105, 200));"
         "   color: white;"
-        "   border: 4px solid #10b981;"
-        "   border-radius: 18px;"
-        "   padding: 15px 30px;"
-        "   font-size: 15pt;"
+        "   border: 2px solid rgba(52, 211, 153, 180);"
+        "   border-radius: 14px;"
+        "   padding: 12px 24px;"
+        "   font-size: 14pt;"
         "   font-weight: bold;"
-        "   text-transform: uppercase;"
         "   letter-spacing: 1px;"
         "}"
         "QPushButton:hover {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #6ee7b7, stop:1 #34d399);"
-        "   border: 4px solid #fbbf24;"
+        "                                stop:0 rgba(52, 211, 153, 200), stop:1 rgba(16, 185, 129, 220));"
+        "   border: 2px solid rgba(110, 231, 183, 255);"
         "}"
         "QPushButton:pressed {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #10b981, stop:1 #059669);"
-        "   border: 4px solid #059669;"
+        "                                stop:0 rgba(5, 150, 105, 200), stop:1 rgba(4, 120, 87, 220));"
+        "   border: 2px solid rgba(16, 185, 129, 180);"
         "}"
         "QPushButton:disabled {"
-        "   background: #cbd5e1;"
-        "   border: 3px solid #94a3b8;"
+        "   background: rgba(51, 65, 85, 150);"
+        "   border: 1px solid rgba(71, 85, 105, 100);"
         "   color: #64748b;"
         "}"
     );
     ui->EvaluateButton->setToolTip("Check if your circuit produces the correct truth table");
 
-    // Style the tip description label with cohesive blue theme
+    // Style the tip description label with dark theme
     ui->tipDescription->setStyleSheet(
         "QLabel {"
-        "   background: #f0f9ff;"
-        "   border: 3px solid #00b4d8;"
+        "   background: rgba(30, 41, 59, 220);"
+        "   border: 1px solid rgba(56, 189, 248, 100);"
         "   border-radius: 10px;"
         "   padding: 10px 15px;"
         "   font-size: 10pt;"
         "   font-weight: 600;"
-        "   color: #1e293b;"
+        "   color: #e2e8f0;"
         "   line-height: 1.4;"
         "}"
     );
 
-    // Style the truth table title with premium gradient and shadow
+    // Style the truth table title with dark theme cyan accent
     ui->truthTableTitle->setStyleSheet(
         "QLabel {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #0ea5e9, stop:0.5 #0284c7, stop:1 #0369a1);"
+        "                                stop:0 rgba(14, 165, 233, 255), stop:0.5 rgba(6, 182, 212, 255), stop:1 rgba(8, 145, 178, 255));"
         "   color: #ffffff;"
-        "   font-size: 14pt;"
+        "   font-size: 13pt;"
         "   font-weight: 700;"
-        "   letter-spacing: 2.5px;"
-        "   border-top-left-radius: 12px;"
-        "   border-top-right-radius: 12px;"
-        "   padding: 12px;"
-        "   text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);"
+        "   letter-spacing: 2px;"
+        "   border: 1px solid rgba(56, 189, 248, 80);"
+        "   border-bottom: none;"
+        "   padding: 10px;"
         "}"
     );
 
-    // Style the truth table container with modern shadow effect
+    // Style the truth table container - transparent to avoid gray artifacts
     ui->truthTableContainer->setStyleSheet(
         "QWidget {"
-        "   background: #ffffff;"
-        "   border-radius: 12px;"
+        "   background: transparent;"
         "   border: none;"
-        "   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);"
         "}"
     );
 
@@ -566,7 +592,7 @@ void MainWindow::onClearClicked() {
         button->buttonDelete();
     }
     QTimer::singleShot(3000, this, [this]() {draggableButtons.clear();});
-    ui->statusbar->showMessage("Workspace cleared! All gates removed.", 3000);
+    ui->statusbar->showMessage("Workspace cleared", 3000);
 }
 
 DraggableButton* MainWindow::createGateButton(const GateType gateType, const QIcon& icon) {
@@ -596,22 +622,35 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
 
     // Loop through each starting button and its wires
     for (DraggableButton* sourceButton : connections.keys()) {
-        QPoint startPos = sourceButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+        // Map button position to backgroundGridLabel coordinates using global mapping
+        // Output port at (44, 21), center at (48, 25) for 8x8 port
+        QPoint sourceGlobal = sourceButton->mapToGlobal(QPoint(48, 25));
+        QPoint startPos = backgroundGridLabel->mapFromGlobal(sourceGlobal);
 
         // Loop over each connection for source button
         for (const auto& connection : connections.value(sourceButton)) {
             DraggableButton* targetButton = connection.first;
             int inputPort = connection.second;
 
-            // Calculate end position with input port offset
-            QPoint endPos = targetButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
-            QPoint offset;
-            switch (inputPort) {
-            case 1: offset = QPoint(-10, -12); break;
-            case 2: offset = QPoint(-10, 12); break;
-            default: offset = QPoint(0, 0); break;
+            // Map target button position to backgroundGridLabel coordinates
+            // For gates with 1 input (INVERTER, OUTPUT): input1 at (-2, 21), center = (2, 25 + 6)
+            // For gates with 2 inputs: input1 at (-2, 9), input2 at (-2, 33)
+            QPoint inputOffset;
+            GateType targetGateType = targetButton->getGateType();
+
+            if (targetGateType == GateType::INVERTER || targetGateType == GateType::OUTPUT) {
+                // Single input gate - input is centered at (-2, 21), center at (2, 25)
+                inputOffset = QPoint(2, 25);
+            } else {
+                // Two input gate
+                switch (inputPort) {
+                case 1: inputOffset = QPoint(2, 13); break;   // input1 top position center (9+4)
+                case 2: inputOffset = QPoint(2, 37); break;   // input2 bottom position center (33+4)
+                default: inputOffset = QPoint(2, 25); break;  // fallback center position
+                }
             }
-            endPos += offset;
+            QPoint targetGlobal = targetButton->mapToGlobal(inputOffset);
+            QPoint endPos = backgroundGridLabel->mapFromGlobal(targetGlobal);
 
             // Handle backward wiring (when start is to the right of end)
             if (startPos.x() > endPos.x()) {
@@ -621,8 +660,8 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
                     verticalOffset = -verticalOffset;
                 }
 
-                // Draw first segment
-                QPoint p1(startPos.x() + GATE_SIZE, startPos.y());
+                // Draw first segment (short horizontal from output)
+                QPoint p1(startPos.x() + 20, startPos.y());
                 drawWireArrow(startPos, p1, false);
 
                 // Draw second segment (vertical)
@@ -630,7 +669,7 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
                 drawWireArrow(p1, p2, false);
 
                 // Draw third and fourth segments
-                QPoint p3(endPos.x() - GATE_SIZE, endPos.y());
+                QPoint p3(endPos.x() - 20, endPos.y());
                 QPoint p4(p3.x(), p3.y() - verticalOffset);
                 drawWireArrow(p4, p3, false);
                 drawWireArrow(p3, endPos, false);
@@ -655,16 +694,28 @@ void MainWindow::drawWire(QMap<DraggableButton*, QVector<QPair<DraggableButton*,
 }
 
 void MainWindow::drawWireArrow(QPoint start,  QPoint end, bool animating) {
-    int arrowSize = 10;
+    int arrowSize = 8;
 
     QPainter painter(backgroundPixmap);
+    painter.setRenderHint(QPainter::Antialiasing, true);
 
-    painter.setPen(QPen(Qt::black, 2, Qt::SolidLine, Qt::RoundCap));
+    // Define wire colors for dark theme
+    QColor wireColor(148, 163, 184);    // Slate-400 for normal wires (visible on dark bg)
+    QColor wireColorAnim(56, 189, 248); // Sky-400 for animated wires
+    QColor arrowColor(100, 116, 139);   // Slate-500 for arrows
+    QColor arrowColorAnim(34, 211, 238); // Cyan-400 for animated arrows
+
     if(animating){
-        painter.setPen(QPen(Qt::blue, 4, Qt::SolidLine, Qt::RoundCap));
+        // Animated wire with glow effect
+        QPen glowPen(QColor(56, 189, 248, 80), 8, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
+        painter.setPen(glowPen);
+        painter.drawLine(start, end);
+        painter.setPen(QPen(wireColorAnim, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    } else {
+        painter.setPen(QPen(wireColor, 2, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     }
 
-    painter.drawLine(start,end);
+    painter.drawLine(start, end);
 
     QPoint diff = end - start;
     QPoint arrowPos = (start + end) / 2;  // Place arrow in middle of segment
@@ -692,7 +743,8 @@ void MainWindow::drawWireArrow(QPoint start,  QPoint end, bool animating) {
         }
     }
 
-    painter.setBrush(QBrush(Qt::blue));
+    painter.setPen(Qt::NoPen);
+    painter.setBrush(QBrush(animating ? arrowColorAnim : arrowColor));
     painter.drawPolygon(triangle);
 }
 
@@ -701,7 +753,7 @@ void MainWindow::onWireClicked(bool checked) {
     if (checked) {
         disableToolBarActions();
         ui->actionWire->setEnabled(true);
-        ui->statusbar->showMessage("WIRE MODE ACTIVE - Click gates to connect them together", 0);
+        ui->statusbar->showMessage("Wire Mode: Click output ports then input ports to connect gates", 0);
     }
     else {
         enableToolBarActions();
@@ -713,7 +765,7 @@ void MainWindow::onDeleteClicked(bool checked){
     if (checked){
         disableToolBarActions();
         ui->actionDelete->setEnabled(true);
-        ui->statusbar->showMessage("DELETE MODE ACTIVE - Click gates to remove them", 0);
+        ui->statusbar->showMessage("Delete Mode: Click gates or connection ports to remove them", 0);
     }
 
     else {
@@ -744,12 +796,41 @@ void MainWindow::startGame() {
     backgroundPixmap = new QPixmap(backgroundGridLabel->size());
     backgroundGridLabel->setScaledContents(false);
 
+    // Draw subtle grid pattern on workspace
+    backgroundPixmap->fill(Qt::transparent);
+    QPainter gridPainter(backgroundPixmap);
+    gridPainter.setRenderHint(QPainter::Antialiasing, true);
+
+    // Subtle grid lines for dark theme
+    QPen gridPen(QColor(71, 85, 105, 30), 1);  // Slate-600 with low opacity
+    gridPainter.setPen(gridPen);
+
+    int gridSize = 50;
+    for (int x = 0; x < backgroundPixmap->width(); x += gridSize) {
+        gridPainter.drawLine(x, 0, x, backgroundPixmap->height());
+    }
+    for (int y = 0; y < backgroundPixmap->height(); y += gridSize) {
+        gridPainter.drawLine(0, y, backgroundPixmap->width(), y);
+    }
+
+    // Slightly stronger lines every 4 cells
+    QPen majorGridPen(QColor(71, 85, 105, 50), 1);
+    gridPainter.setPen(majorGridPen);
+    for (int x = 0; x < backgroundPixmap->width(); x += gridSize * 4) {
+        gridPainter.drawLine(x, 0, x, backgroundPixmap->height());
+    }
+    for (int y = 0; y < backgroundPixmap->height(); y += gridSize * 4) {
+        gridPainter.drawLine(0, y, backgroundPixmap->width(), y);
+    }
+
+    backgroundGridLabel->setPixmap(*backgroundPixmap);
+
     ui->startButton->hide();
     ui->gridLayoutWidget->hide();
 
     ui->textEdit->hide();
 
-    ui->statusbar->showMessage(QString("LEVEL %1 STARTED - Build your circuit using the toolbar!").arg(currentLevel + 1), 5000);
+    ui->statusbar->showMessage(QString("Level %1 - Build your circuit using the toolbar").arg(currentLevel + 1), 5000);
 
     emit nextLevel(currentLevel);
 
@@ -828,18 +909,34 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable) {
         p = QPoint(150, startY + (i * verticalSpacing));
         input->move(p);
 
-        // Style input gates with cohesive blue theme
+        // Style input gates with dark theme
         input->setStyleSheet(
             "DraggableButton {"
             "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-            "                                stop:0 #38bdf8, stop:1 #0ea5e9);"
-            "   border: 3px solid #0ea5e9;"
-            "   border-radius: 6px;"
+            "                                stop:0 rgba(56, 189, 248, 150), stop:1 rgba(14, 165, 233, 180));"
+            "   border: 2px solid rgba(56, 189, 248, 200);"
+            "   border-radius: 8px;"
             "}"
             "DraggableButton:hover {"
-            "   border: 3px solid #fbbf24;"
+            "   border: 2px solid rgba(251, 191, 36, 200);"
             "}"
         );
+
+        // Re-apply port button style after parent styling
+        QPushButton* outputPort = input->findChild<QPushButton*>("portOutput");
+        if (outputPort) {
+            outputPort->setFixedSize(8, 8);
+            outputPort->setStyleSheet(
+                "QPushButton {"
+                "   background: #1e293b;"
+                "   border: 1px solid #34d399;"
+                "   border-radius: 4px;"
+                "   min-width: 8px; max-width: 8px;"
+                "   min-height: 8px; max-height: 8px;"
+                "}"
+                "QPushButton:hover { background: #34d399; }"
+            );
+        }
 
         inputOutputButtons.push_back(input);
     }
@@ -849,18 +946,34 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable) {
     DraggableButton* output = createGateButton(GateType::OUTPUT, ui->actionInputGate->icon());
     output->move(p);
 
-    // Style output gate with cohesive green success theme
+    // Style output gate with dark theme green accent
     output->setStyleSheet(
         "DraggableButton {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #34d399, stop:1 #10b981);"
-        "   border: 3px solid #10b981;"
-        "   border-radius: 6px;"
+        "                                stop:0 rgba(52, 211, 153, 150), stop:1 rgba(16, 185, 129, 180));"
+        "   border: 2px solid rgba(52, 211, 153, 200);"
+        "   border-radius: 8px;"
         "}"
         "DraggableButton:hover {"
-        "   border: 3px solid #fbbf24;"
+        "   border: 2px solid rgba(251, 191, 36, 200);"
         "}"
     );
+
+    // Re-apply port button style after parent styling
+    QPushButton* inputPort = output->findChild<QPushButton*>("portInput1");
+    if (inputPort) {
+        inputPort->setFixedSize(8, 8);
+        inputPort->setStyleSheet(
+            "QPushButton {"
+            "   background: #1e293b;"
+            "   border: 1px solid #38bdf8;"
+            "   border-radius: 4px;"
+            "   min-width: 8px; max-width: 8px;"
+            "   min-height: 8px; max-height: 8px;"
+            "}"
+            "QPushButton:hover { background: #38bdf8; }"
+        );
+    }
 
     inputOutputButtons.push_back(output);
     // Pull data out of truthtable
@@ -872,52 +985,56 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable) {
     tableWidget->setCornerButtonEnabled(false);  // Disable corner button
     tableWidget->horizontalHeader()->setHighlightSections(false);  // No highlight
 
-    // Premium, polished truth table design with modern aesthetics
+    // Dark theme truth table design - no border radius to avoid gray corners
     tableWidget->setStyleSheet(
         "QTableWidget {"
-        "   background: #ffffff;"
-        "   border: 0px;"
-        "   border-radius: 0px 0px 12px 12px;"
-        "   gridline-color: #e2e8f0;"
-        "   font-size: 15pt;"
+        "   background: rgba(30, 41, 59, 255);"
+        "   border: 1px solid rgba(56, 189, 248, 80);"
+        "   border-top: none;"
+        "   gridline-color: rgba(71, 85, 105, 100);"
+        "   font-size: 14pt;"
         "   font-weight: 600;"
         "   selection-background-color: transparent;"
         "   font-family: 'Segoe UI', 'SF Pro Display', Arial, sans-serif;"
         "   outline: none;"
         "}"
         "QTableWidget::item {"
-        "   padding: 18px 24px;"
+        "   padding: 14px 20px;"
         "   border: none;"
-        "   border-bottom: 1px solid #f1f5f9;"
-        "   border-right: 1px solid #e2e8f0;"
-        "   color: #0f172a;"
+        "   border-bottom: 1px solid rgba(71, 85, 105, 80);"
+        "   border-right: 1px solid rgba(71, 85, 105, 60);"
+        "   color: #e2e8f0;"
         "}"
         "QTableWidget::item:selected {"
         "   background: transparent;"
         "}"
+        "QTableWidget QTableCornerButton::section {"
+        "   background: rgba(30, 41, 59, 255);"
+        "   border: none;"
+        "}"
         "QHeaderView {"
         "   border: none;"
         "   outline: none;"
+        "   background: transparent;"
         "}"
         "QHeaderView::section {"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #0ea5e9, stop:0.5 #0284c7, stop:1 #0369a1);"
+        "                                stop:0 rgba(14, 165, 233, 255), stop:0.5 rgba(6, 182, 212, 255), stop:1 rgba(8, 145, 178, 255));"
         "   color: #ffffff;"
-        "   padding: 16px 24px;"
+        "   padding: 12px 20px;"
         "   border: none;"
-        "   border-right: 1px solid rgba(255, 255, 255, 0.2);"
+        "   border-right: 1px solid rgba(255, 255, 255, 0.15);"
         "   font-weight: 700;"
-        "   font-size: 12pt;"
-        "   letter-spacing: 1.2px;"
+        "   font-size: 11pt;"
+        "   letter-spacing: 1px;"
         "   text-transform: uppercase;"
-        "   text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);"
         "}"
         "QHeaderView::section:last {"
         "   border: none;"
         "   border-right: none;"
         "   border-left: none;"
         "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                                stop:0 #10b981, stop:0.5 #059669, stop:1 #047857);"
+        "                                stop:0 rgba(16, 185, 129, 255), stop:0.5 rgba(5, 150, 105, 255), stop:1 rgba(4, 120, 87, 255));"
         "}"
     );
 
@@ -938,7 +1055,7 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable) {
     headers << "Out";
     tableWidget->setHorizontalHeaderLabels(headers);
 
-    // Fill with beautifully styled cells
+    // Fill with dark-themed styled cells
     for (int row = 0; row < rowCount; ++row) {
         const QVector<int>& inputs = tableRows[row].first;
         int output = tableRows[row].second;
@@ -950,48 +1067,48 @@ void MainWindow::drawNewLevel(int inputs, TruthTable* newTable) {
             QTableWidgetItem* item = new QTableWidgetItem(QString::number(inputs[col]));
             item->setTextAlignment(Qt::AlignCenter);
 
-            // Premium polished color scheme with subtle gradients
+            // Dark theme color scheme
             if (inputs[col] == 0) {
                 if (isEvenRow) {
-                    item->setBackground(QColor("#fef2f2"));  // Ultra light red
+                    item->setBackground(QColor(127, 29, 29, 60));  // Dark red tint
                 } else {
-                    item->setBackground(QColor("#fee2e2"));  // Very light red
+                    item->setBackground(QColor(127, 29, 29, 40));  // Darker red tint
                 }
-                item->setForeground(QColor("#dc2626"));  // Rich red text
+                item->setForeground(QColor("#f87171"));  // Bright red text
             } else {
                 if (isEvenRow) {
-                    item->setBackground(QColor("#f0fdf4"));  // Ultra light green
+                    item->setBackground(QColor(5, 150, 105, 60));  // Dark green tint
                 } else {
-                    item->setBackground(QColor("#dcfce7"));  // Very light green
+                    item->setBackground(QColor(5, 150, 105, 40));  // Darker green tint
                 }
-                item->setForeground(QColor("#059669"));  // Rich green text
+                item->setForeground(QColor("#34d399"));  // Bright green text
             }
 
-            item->setFont(QFont("Segoe UI", 17, QFont::Bold));
+            item->setFont(QFont("Segoe UI", 15, QFont::Bold));
             tableWidget->setItem(row, col, item);
         }
 
-        // Output column with premium emphasis and stronger visual hierarchy
+        // Output column with emphasis
         QTableWidgetItem* outItem = new QTableWidgetItem(QString::number(output));
         outItem->setTextAlignment(Qt::AlignCenter);
 
         if (output == 0) {
             if (isEvenRow) {
-                outItem->setBackground(QColor("#fecaca"));  // Soft red
+                outItem->setBackground(QColor(185, 28, 28, 100));  // Red accent
             } else {
-                outItem->setBackground(QColor("#fca5a5"));  // Medium red
+                outItem->setBackground(QColor(185, 28, 28, 70));  // Darker red accent
             }
-            outItem->setForeground(QColor("#b91c1c"));  // Deep red text
+            outItem->setForeground(QColor("#fca5a5"));  // Bright red text
         } else {
             if (isEvenRow) {
-                outItem->setBackground(QColor("#86efac"));  // Soft green
+                outItem->setBackground(QColor(4, 120, 87, 100));  // Green accent
             } else {
-                outItem->setBackground(QColor("#6ee7b7"));  // Medium green
+                outItem->setBackground(QColor(4, 120, 87, 70));  // Darker green accent
             }
-            outItem->setForeground(QColor("#047857"));  // Deep green text
+            outItem->setForeground(QColor("#6ee7b7"));  // Bright green text
         }
 
-        outItem->setFont(QFont("Segoe UI", 18, QFont::ExtraBold));
+        outItem->setFont(QFont("Segoe UI", 16, QFont::ExtraBold));
         tableWidget->setItem(row, inputCount, outItem);
     }
 
@@ -1066,40 +1183,40 @@ void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable) {
         msgBox.setWindowTitle("LEVEL COMPLETE!");
         msgBox.setIcon(QMessageBox::Information);
         msgBox.setText("<div style='text-align: center;'>"
-                       "<h1 style='color:#10b981; font-size:24pt; margin:10px;'>BRILLIANT!</h1>"
-                       "<p style='color:#00b4d8; font-size:16pt; font-weight:bold;'>Perfect Circuit Design!</p>"
+                       "<h1 style='color:#34d399; font-size:22pt; margin:10px;'>BRILLIANT!</h1>"
+                       "<p style='color:#38bdf8; font-size:14pt; font-weight:bold;'>Perfect Circuit Design!</p>"
                        "</div>");
-        msgBox.setInformativeText("<p style='font-size:12pt; color:#2d3748;'>"
+        msgBox.setInformativeText("<p style='font-size:11pt; color:#94a3b8;'>"
                                   "Your circuit correctly implements the required logic gate behavior.<br><br>"
-                                  "<b style='color:#00b4d8;'>Ready for the next challenge?</b></p>");
+                                  "<b style='color:#38bdf8;'>Ready for the next challenge?</b></p>");
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setStyleSheet(
             "QMessageBox {"
             "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-            "                                stop:0 #f0f9ff, stop:1 #e0f2fe);"
-            "   border: 4px solid #00b4d8;"
-            "   border-radius: 15px;"
+            "                                stop:0 rgba(30, 41, 59, 250), stop:1 rgba(15, 23, 42, 255));"
+            "   border: 1px solid rgba(52, 211, 153, 150);"
+            "   border-radius: 12px;"
             "}"
             "QLabel {"
-            "   color: #2d3748;"
-            "   font-size: 12pt;"
+            "   color: #e2e8f0;"
+            "   font-size: 11pt;"
             "   background: transparent;"
             "}"
             "QPushButton {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #10b981, stop:1 #059669);"
+            "                                stop:0 rgba(16, 185, 129, 180), stop:1 rgba(5, 150, 105, 200));"
             "   color: white;"
-            "   border: 3px solid #10b981;"
-            "   border-radius: 10px;"
-            "   padding: 12px 24px;"
+            "   border: 1px solid rgba(52, 211, 153, 180);"
+            "   border-radius: 8px;"
+            "   padding: 10px 20px;"
             "   font-weight: bold;"
-            "   font-size: 13pt;"
-            "   min-width: 120px;"
+            "   font-size: 12pt;"
+            "   min-width: 100px;"
             "}"
             "QPushButton:hover {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #34d399, stop:1 #10b981);"
-            "   border: 3px solid #ffc107;"
+            "                                stop:0 rgba(52, 211, 153, 200), stop:1 rgba(16, 185, 129, 220));"
+            "   border: 1px solid rgba(110, 231, 183, 255);"
             "}"
         );
         msgBox.exec();
@@ -1120,44 +1237,44 @@ void MainWindow::getNextLevel(bool levelComplete, TruthTable *currentTable) {
     {
         // Display try again message.
         QMessageBox msgBox;
-        msgBox.setWindowTitle("🔧 NEEDS ADJUSTMENT");
+        msgBox.setWindowTitle("Needs Adjustment");
         msgBox.setIcon(QMessageBox::Warning);
         msgBox.setText("<div style='text-align: center;'>"
-                       "<h2 style='color:#f59e0b; font-size:18pt; margin:10px;'>⚠️ Not Quite There!</h2>"
-                       "<p style='color:#00b4d8; font-size:14pt; font-weight:bold;'>Circuit Output Doesn't Match</p>"
+                       "<h2 style='color:#fbbf24; font-size:16pt; margin:10px;'>Not Quite Right</h2>"
+                       "<p style='color:#38bdf8; font-size:13pt; font-weight:bold;'>Circuit Output Mismatch</p>"
                        "</div>");
-        msgBox.setInformativeText("<p style='font-size:11pt; color:#2d3748;'>"
+        msgBox.setInformativeText("<p style='font-size:10pt; color:#94a3b8;'>"
                                   "Your circuit doesn't produce the correct truth table.<br><br>"
-                                  "<b style='color:#00b4d8;'>Hint:</b> <i>" + currentTable->getHint() + "</i><br><br>"
-                                  "Double-check your gate connections and try again!</p>");
+                                  "<b style='color:#38bdf8;'>Hint:</b> <i>" + currentTable->getHint() + "</i><br><br>"
+                                  "Check your gate connections and try again.</p>");
         msgBox.setStandardButtons(QMessageBox::Ok);
         msgBox.setStyleSheet(
             "QMessageBox {"
             "   background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-            "                                stop:0 #fffbeb, stop:1 #fef3c7);"
-            "   border: 4px solid #f59e0b;"
-            "   border-radius: 15px;"
+            "                                stop:0 rgba(30, 41, 59, 250), stop:1 rgba(15, 23, 42, 255));"
+            "   border: 1px solid rgba(251, 191, 36, 150);"
+            "   border-radius: 12px;"
             "}"
             "QLabel {"
-            "   color: #2d3748;"
-            "   font-size: 11pt;"
+            "   color: #e2e8f0;"
+            "   font-size: 10pt;"
             "   background: transparent;"
             "}"
             "QPushButton {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #00b4d8, stop:1 #0096c7);"
+            "                                stop:0 rgba(14, 165, 233, 180), stop:1 rgba(6, 182, 212, 200));"
             "   color: white;"
-            "   border: 3px solid #00b4d8;"
-            "   border-radius: 10px;"
-            "   padding: 12px 24px;"
+            "   border: 1px solid rgba(56, 189, 248, 180);"
+            "   border-radius: 8px;"
+            "   padding: 10px 20px;"
             "   font-weight: bold;"
-            "   font-size: 13pt;"
-            "   min-width: 120px;"
+            "   font-size: 12pt;"
+            "   min-width: 100px;"
             "}"
             "QPushButton:hover {"
             "   background: qlineargradient(x1:0, y1:0, x2:0, y2:1,"
-            "                                stop:0 #48cae4, stop:1 #00b4d8);"
-            "   border: 3px solid #ffc107;"
+            "                                stop:0 rgba(56, 189, 248, 200), stop:1 rgba(34, 211, 238, 220));"
+            "   border: 1px solid rgba(103, 232, 249, 255);"
             "}"
         );
         msgBox.exec();
@@ -1172,20 +1289,34 @@ void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<Dragga
 
     // Collect all wire segments
     for (DraggableButton* sourceButton : connections.keys()) {
-        QPoint startPos = sourceButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
+        // Map button position to backgroundGridLabel coordinates using global mapping
+        // Output port at (44, 21), center at (48, 25) for 8x8 port
+        QPoint sourceGlobal = sourceButton->mapToGlobal(QPoint(48, 25));
+        QPoint startPos = backgroundGridLabel->mapFromGlobal(sourceGlobal);
 
         for (const auto& connection : connections.value(sourceButton)) {
             DraggableButton* targetButton = connection.first;
             int inputPort = connection.second;
 
-            QPoint endPos = targetButton->pos() - QPoint(GATE_SIZE/2, -GATE_SIZE/2);
-            QPoint offset;
-            switch (inputPort) {
-            case 1: offset = QPoint(-10, -12); break;
-            case 2: offset = QPoint(-10, 12); break;
-            default: offset = QPoint(0, 0); break;
+            // Map target button position to backgroundGridLabel coordinates
+            // For gates with 1 input (INVERTER, OUTPUT): input1 at (-2, 21), center = (2, 25 + 6)
+            // For gates with 2 inputs: input1 at (-2, 9), input2 at (-2, 33)
+            QPoint inputOffset;
+            GateType targetGateType = targetButton->getGateType();
+
+            if (targetGateType == GateType::INVERTER || targetGateType == GateType::OUTPUT) {
+                // Single input gate - input is centered at (-2, 21), center at (2, 25)
+                inputOffset = QPoint(2, 25);
+            } else {
+                // Two input gate
+                switch (inputPort) {
+                case 1: inputOffset = QPoint(2, 13); break;   // input1 top position center (9+4)
+                case 2: inputOffset = QPoint(2, 37); break;   // input2 bottom position center (33+4)
+                default: inputOffset = QPoint(2, 25); break;  // fallback center position
+                }
             }
-            endPos += offset;
+            QPoint targetGlobal = targetButton->mapToGlobal(inputOffset);
+            QPoint endPos = backgroundGridLabel->mapFromGlobal(targetGlobal);
 
             if (startPos.x() > endPos.x()) {
                 int verticalOffset = GATE_SIZE;
@@ -1194,13 +1325,13 @@ void MainWindow::evaluationAnimation(QMap<DraggableButton*, QVector<QPair<Dragga
                 }
 
                 // Store backward wiring segments
-                QPoint p1(startPos.x() + GATE_SIZE, startPos.y());
+                QPoint p1(startPos.x() + 20, startPos.y());
                 wireSegments.push_back(QPair<QPoint,QPoint>(startPos, p1));
 
                 QPoint p2(p1.x(), p1.y() - verticalOffset);
                 wireSegments.push_back(QPair<QPoint,QPoint>(p1, p2));
 
-                QPoint p3(endPos.x() - GATE_SIZE, endPos.y());
+                QPoint p3(endPos.x() - 20, endPos.y());
                 QPoint p4(p3.x(), p3.y() - verticalOffset);
                 wireSegments.push_back(QPair<QPoint,QPoint>(p4, p3));
                 wireSegments.push_back(QPair<QPoint,QPoint>(p3, endPos));
@@ -1274,7 +1405,7 @@ void MainWindow::displayLevelDescription(QString description) {
     textLabel->move(centeredX, yPos);
 
     textLabel->show();
-    ui->statusbar->showMessage("Read the level description for helpful tips!", 3000);
+    ui->statusbar->showMessage("Tip: Read the level description above for hints", 3000);
 }
 
 void MainWindow::disableEvaluate() {
@@ -1305,6 +1436,9 @@ void MainWindow::returnToMenu(){
     ui->textEdit->show();
     ui->startButton->show();
     ui->gridLayoutWidget->show();
+
+    // Re-center welcome screen elements
+    centerWelcomeScreen();
 
     // Hide game elements
     ui->previewTableWidget->hide();
@@ -1340,29 +1474,61 @@ void MainWindow::gameOver() {
     messageBox->setGeometry(120, 120, 560, 400);
     messageBox->setStyleSheet(
         "background: qlineargradient(x1:0, y1:0, x2:1, y2:1,"
-        "                             stop:0 rgba(0, 200, 255, 250),"
-        "                             stop:0.5 rgba(0, 180, 216, 250),"
-        "                             stop:1 rgba(0, 150, 199, 250));"
-        "border: 6px solid rgba(255, 193, 7, 230);"
-        "border-radius: 25px;"
-        "padding: 25px;"
+        "                             stop:0 rgba(15, 23, 42, 250),"
+        "                             stop:0.5 rgba(30, 41, 59, 250),"
+        "                             stop:1 rgba(15, 23, 42, 250));"
+        "border: 2px solid rgba(52, 211, 153, 200);"
+        "border-radius: 16px;"
+        "padding: 20px;"
     );
     messageBox->setHtml(
-        "<div align='center' style='padding: 25px;'>"
-        "<h1 style='color:#FFD700; font-size:42pt; margin-bottom:15px; text-shadow: 3px 3px 6px rgba(0,0,0,0.3);'>VICTORY!</h1>"
-        "<p style='font-size:22pt; color:#FFFFFF; margin:15px; font-weight:bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);'>ALL 12 LEVELS MASTERED!</p>"
-        "<p style='font-size:16pt; color:#F0F9FF; margin:15px;'>Congratulations on completing every circuit challenge!</p>"
-        "<p style='font-size:14pt; color:#E0F2FE; margin-top:25px;'>You are now a <b>Digital Logic Expert</b>!</p>"
-        "<p style='font-size:12pt; color:#DBEAFE; margin-top:30px;'>You've demonstrated mastery of:</p>"
-        "<p style='font-size:11pt; color:#DBEAFE;'>AND • OR • NOT • NAND • NOR • XOR • XNOR Gates</p>"
-        "<p style='font-size:11pt; color:#BAE6FD; margin-top:30px; font-style:italic;'>Close the application or return to menu to replay levels</p>"
+        "<div align='center' style='padding: 20px;'>"
+        "<h1 style='color:#34d399; font-size:36pt; margin-bottom:15px;'>VICTORY</h1>"
+        "<p style='font-size:18pt; color:#38bdf8; margin:15px; font-weight:bold;'>ALL 12 LEVELS MASTERED</p>"
+        "<p style='font-size:14pt; color:#94a3b8; margin:15px;'>Congratulations on completing every circuit challenge!</p>"
+        "<p style='font-size:13pt; color:#e2e8f0; margin-top:20px;'>You are now a <b style='color:#38bdf8;'>Digital Logic Expert</b></p>"
+        "<p style='font-size:11pt; color:#64748b; margin-top:25px;'>You've demonstrated mastery of:</p>"
+        "<p style='font-size:11pt; color:#94a3b8;'>AND | OR | NOT | NAND | NOR | XOR | XNOR</p>"
+        "<p style='font-size:11pt; color:#475569; margin-top:25px; font-style:italic;'>Return to menu to replay levels</p>"
         "</div>"
         );
     messageBox->show();
     messageBox->raise();
     ui->actionMENU->setEnabled(true);
     currentLevel =1;
-    ui->statusbar->showMessage("🎊 PERFECT! All 12 levels completed! You are a Circuit Builder MASTER! 🎊", 15000);
+    ui->statusbar->showMessage("All 12 levels completed! You are a Circuit Builder Master!", 15000);
+}
+
+void MainWindow::centerWelcomeScreen() {
+    // Use central widget width instead of window width to account for toolbar
+    int centralWidth = ui->centralwidget->width();
+
+    // Only center if window has valid size
+    if (centralWidth < 800) return;
+
+    // Center the title text edit
+    int textEditWidth = ui->textEdit->width();
+    int textEditX = (centralWidth - textEditWidth) / 2;
+    ui->textEdit->move(textEditX, ui->textEdit->y());
+
+    // Center the start button
+    int startButtonWidth = ui->startButton->width();
+    int startButtonX = (centralWidth - startButtonWidth) / 2;
+    ui->startButton->move(startButtonX, ui->startButton->y());
+
+    // Center the levels grid
+    int gridWidth = ui->gridLayoutWidget->width();
+    int gridX = (centralWidth - gridWidth) / 2;
+    ui->gridLayoutWidget->move(gridX, ui->gridLayoutWidget->y());
+}
+
+void MainWindow::resizeEvent(QResizeEvent *event) {
+    QMainWindow::resizeEvent(event);
+
+    // Re-center welcome screen if it's visible
+    if (ui->textEdit->isVisible() && ui->startButton->isVisible()) {
+        centerWelcomeScreen();
+    }
 }
 
 
